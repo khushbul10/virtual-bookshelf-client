@@ -85,13 +85,13 @@ const HomeBannerSlider = () => (
     ))}
 
     <div className="w-full max-w-4xl mx-auto relative z-10">
-      <Slider {...settings}>
+      <Slider  {...settings}>
         {slides.map((slide, idx) => (
-          <div key={idx} className="overflow-hidden rounded-3xl">
+          <div key={idx} className="overflow-hidden p-4 rounded-3xl">
             <motion.div
               className={`
                 relative flex flex-col items-center justify-center h-[380px] md:h-[430px] px-5 md:px-14 text-center overflow-hidden
-                bg-gradient-to-br ${slide.bg} shadow-2xl
+                bg-gradient-to-br ${slide.bg} rounded-3xl
               `}
               initial={{ opacity: 0, scale: 0.93 }}
               animate={{ opacity: 1, scale: 1 }}
