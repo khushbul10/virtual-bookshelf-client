@@ -11,7 +11,7 @@ const icons = [
 
 const HomeBanner = () => {
   return (
-    <section className="relative bg-white overflow-hidden py-24 md:py-32 flex items-center justify-center min-h-[480px]">
+    <section className="bg-[url(https://www.transparenttextures.com/patterns/crissxcross.png)] rounded-3xl relative  overflow-hidden py-24 md:py-32 flex items-center justify-center min-h-[480px]">
       {/* FRESH Radial Gradient Background */}
       <div className="absolute inset-0 -z-10">
         <svg
@@ -68,13 +68,13 @@ const HomeBanner = () => {
       ))}
 
       {/* Glassmorphic Glow Behind Content */}
-      <motion.div
+      {/* <motion.div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] h-[340px] rounded-3xl blur-2xl bg-gradient-to-br from-fuchsia-300/30 via-purple-400/10 to-white/30 pointer-events-none"
         initial={{ scale: 0.88, opacity: 0.62 }}
         animate={{ scale: [0.88, 1.05, 0.97, 1], opacity: [0.62, 0.9, 0.75, 0.62] }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         style={{ zIndex: 1 }}
-      />
+      /> */}
 
       {/* Main Content */}
       <motion.div
