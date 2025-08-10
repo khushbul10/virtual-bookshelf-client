@@ -49,20 +49,20 @@ const Navbar = () => {
               <NavLink
                 to={to}
                 className={({ isActive }) =>
-                  `relative px-2 py-1 font-medium text-lg transition 
-                   ${isActive ? "text-fuchsia-200" : "text-purple-50 hover:text-fuchsia-100"}`
+                  `relative py-2 px-3  rounded-xl font-medium text-lg transition 
+                   ${isActive ? "text-purple-50 bg-white/20" : "text-purple-50 hover:text-fuchsia-100"}`
                 }
               >
                 {({ isActive }) => (
                   <>
                     <span>{label}</span>
-                    {isActive && (
+                    {/* {isActive && (
                       <motion.div
                         layoutId="nav-underline"
                         className="absolute left-0 -bottom-1 w-full h-1 rounded bg-gradient-to-r from-fuchsia-400 to-pink-400"
                         style={{ zIndex: -1 }}
                       />
-                    )}
+                    )} */}
                   </>
                 )}
               </NavLink>
