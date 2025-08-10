@@ -11,12 +11,12 @@ const Footer = () => {
   return (
     <footer className="relative mt-20 z-20 bg-[#1b103a]">
       {/* Glassy Gradient BG */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-purple-800/80 via-fuchsia-700/70 to-pink-700/60 blur-lg opacity-70 pointer-events-none" />
+      {/* <div className="absolute inset-0 bg-gradient-to-tr from-purple-800/80 via-fuchsia-700/70 to-pink-700/60 blur-lg opacity-70 pointer-events-none" /> */}
       <div className="relative max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center md:items-start justify-between z-10">
         {/* Logo & Name */}
         <div className="flex flex-col items-center md:items-start mb-8 md:mb-0">
           <div className="flex items-center gap-3 mb-2">
-            <span className="text-4xl drop-shadow-lg">📚</span>
+            <span className="text-4xl drop-shadow-lg"> <img src="/download.png" className="w-10 h-10" alt="" /> </span>
             <span className="text-2xl md:text-3xl font-extrabold text-white drop-shadow-lg tracking-wider">
               Virtual Bookshelf
             </span>
@@ -94,7 +94,7 @@ const Footer = () => {
           </motion.a>
         </div>
       </div>
-      <div className="text-center py-4 text-xs text-purple-100/80 z-10 relative bg-[#1b103a]">
+      <div className="text-center border-t-2 border-purple-800/30 py-4 text-xs text-purple-100/80 z-10 relative bg-[#1b103a]">
         &copy; {new Date().getFullYear()} Virtual Bookshelf &mdash; All rights reserved.
       </div>
     </footer>

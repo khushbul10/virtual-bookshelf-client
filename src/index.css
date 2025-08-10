@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@400..700&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
 @import "slick-carousel/slick/slick.css";
@@ -10,4 +11,5 @@ html, body, #root {
   margin: 0;
   padding: 0;
 }
+
 

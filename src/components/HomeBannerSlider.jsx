@@ -63,7 +63,7 @@ const settings = {
 };
 
 const HomeBannerSlider = () => (
-  <section className="relative overflow-hidden py-20 min-h-[380px] md:min-h-[430px] flex items-center justify-center select-none">
+  <section className="relative overflow-hidden mt-10 min-h-[380px] md:min-h-[430px] flex items-center justify-center select-none">
     {/* Floating blobs */}
     {decoBlobs.map((blob, i) => (
       <motion.div

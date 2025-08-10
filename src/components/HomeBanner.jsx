@@ -11,7 +11,7 @@ const icons = [
 
 const HomeBanner = () => {
   return (
-    <section className="relative overflow-hidden py-24 md:py-32 flex items-center justify-center min-h-[480px]">
+    <section className="relative bg-white overflow-hidden py-24 md:py-32 flex items-center justify-center min-h-[480px]">
       {/* FRESH Radial Gradient Background */}
       <div className="absolute inset-0 -z-10">
         <svg
@@ -103,7 +103,7 @@ const HomeBanner = () => {
           href="/bookshelf"
           className="inline-block mt-4 px-8 py-3 text-xl font-bold rounded-2xl bg-gradient-to-r from-fuchsia-500 via-purple-500 to-yellow-400 hover:from-purple-700 hover:to-fuchsia-500 text-white shadow-xl hover:scale-105 transition-transform"
           whileHover={{ scale: 1.09 }}
-          transition={{ type: "spring", stiffness: 350, damping: 18 }}
+          // transition={{ type: "spring", stiffness: 50, damping: 20 }}
         >
           Explore Books
         </motion.a>
