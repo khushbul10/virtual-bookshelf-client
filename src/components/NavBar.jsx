@@ -50,7 +50,7 @@ const Navbar = () => {
                 to={to}
                 className={({ isActive }) =>
                   `relative py-2 px-3  rounded-xl font-medium text-lg transition 
-                   ${isActive ? "text-purple-50 bg-white/20" : "text-purple-50 hover:text-fuchsia-100"}`
+                   ${isActive ? "text-purple-50 bg-white/20 shadow" : "text-purple-50 hover:text-fuchsia-100"}`
                 }
               >
                 {({ isActive }) => (
@@ -73,7 +73,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={logoutUser}
-                  className="ml-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-fuchsia-100 rounded-xl font-semibold shadow transition"
+                  className="ml-2 px-4 py-2  hover:bg-white/30 text-fuchsia-100 rounded-xl font-semibold  transition"
                 >
                   Logout
                 </button>

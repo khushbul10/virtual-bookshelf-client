@@ -69,7 +69,7 @@ const Profile = () => {
     >
       {/* Profile Card */}
       <motion.div
-        className="flex flex-col md:flex-row items-center gap-8 bg-white p-8 rounded-3xl shadow-2xl border border-purple-100 mb-10"
+        className="flex flex-col md:flex-row items-center gap-8 bg-white p-8 rounded-3xl  border border-purple-100 mb-5"
         initial={{ scale: 0.96, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
       >
@@ -98,7 +98,7 @@ const Profile = () => {
       </motion.div>
 
       {/* Pie Chart */}
-      <div className="bg-white p-8 rounded-3xl shadow-xl border border-purple-50">
+      <div className="bg-white p-8 rounded-3xl border border-purple-50">
         <div className="text-xl font-bold text-purple-700 mb-6">Books by Category</div>
         {chartData.length === 0 ? (
           <div className="text-gray-500 text-center py-8">No books to show.</div>
