@@ -56,9 +56,9 @@ const BookShelf = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 px-4 mb-8">
         <h2 className="text-3xl font-bold text-purple-700 drop-shadow flex items-center gap-2">
-          <FaBookOpen className="text-2xl text-fuchsia-500" /> Bookshelf
+           Bookshelf
         </h2>
         <div className="flex flex-col md:flex-row gap-3">
           <input

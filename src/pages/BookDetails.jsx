@@ -7,7 +7,6 @@ import { FaThumbsUp } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 
 import useAuth from "../hooks/useAuth";
-import { a } from "motion/react-client";
 import LoadingPage from "./LoadingPage";
 
 const BookDetails = () => {
@@ -19,6 +18,7 @@ const BookDetails = () => {
   const [myReview, setMyReview] = useState(null);
   const [loading, setLoading] = useState(true);
   const [upvoteLoading, setUpvoteLoading] = useState(false);
+  const [editReviewId, setEditReviewId] = useState(null);
 
   // Fetch book details
   useEffect(() => {
@@ -101,14 +101,14 @@ const BookDetails = () => {
   };
 
   // Edit review
-  const handleEditReview = async (e) => {
+  const handleEditReview = async (e, reviewId) => {
     e.preventDefault();
     if (!reviewText.trim()) {
       toast.error("Review cannot be empty.");
       return;
     }
     axios
-      .put(`${import.meta.env.VITE_API_URL}/reviews/${myReview._id}`, {
+      .put(`${import.meta.env.VITE_API_URL}/reviews/${reviewId}`, {
         review_text: reviewText,
         book_id: id,
       })
@@ -117,6 +117,7 @@ const BookDetails = () => {
           setReviews(res.data.reviews);
           setMyReview(res.data.updatedReview || null);
           setReviewText("");
+          setEditReviewId(null);
           toast.success("Review updated!");
         }
       })
@@ -124,10 +125,10 @@ const BookDetails = () => {
   };
 
   // Delete review
-  const handleDeleteReview = async () => {
+  const handleDeleteReview = async (reviewId) => {
     try {
       const res = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/reviews/${myReview._id}`
+        `${import.meta.env.VITE_API_URL}/reviews/${reviewId}`
       );
       if (res.data.success) {
         setReviews(res.data.reviews);
@@ -181,9 +182,7 @@ const BookDetails = () => {
   };
 
   if (loading) {
-    return (
-      <LoadingPage></LoadingPage>
-    );
+    return <LoadingPage />;
   }
   if (!book) {
     return (
@@ -193,6 +192,7 @@ const BookDetails = () => {
     );
   }
   document.title = `${book?.book_title} - Virtual Bookshelf`;
+
   return (
     <motion.div
       className="max-w-4xl mx-auto pt-20 pb-16"
@@ -201,7 +201,7 @@ const BookDetails = () => {
     >
       {/* Book Card */}
       <motion.div
-        className="flex flex-col md:flex-row gap-8 bg-white p-8 rounded-3xl shadow-xl border border-purple-100 mb-8"
+        className="flex flex-col md:flex-row gap-8 bg-white p-8 rounded-3xl  border border-purple-100 mb-8"
         initial={{ scale: 0.97, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
       >
@@ -221,16 +221,13 @@ const BookDetails = () => {
             <span className="px-3 py-1 rounded-xl bg-fuchsia-100 text-fuchsia-700 text-xs">
               {book.book_category}
             </span>
-            
-
             <span className="px-3 py-1 rounded-xl bg-pink-100 text-pink-700 text-xs">
               {book.total_page} pages
             </span>
           </div>
 
-
           {/* Reading Tracker */}
-          <div className="">
+          <div>
             <div className="flex items-center gap-2">
               {statusOrder.map((stat, i) => (
                 <React.Fragment key={stat}>
@@ -289,61 +286,29 @@ const BookDetails = () => {
       <div className="bg-white rounded-2xl shadow p-6 border border-purple-50">
         <h3 className="text-xl font-bold text-purple-700 mb-4">Reviews</h3>
 
-        {user && (
-          <>
-            {!myReview ? (
-              // If user hasn't reviewed, show the add form
-              <form
-                className="mb-4 flex flex-col md:flex-row gap-2"
-                onSubmit={handleReviewSubmit}
-              >
-                <textarea
-                  className="w-full p-2 rounded-lg border border-purple-200 focus:ring-2 focus:ring-fuchsia-400"
-                  rows={2}
-                  placeholder="Write your review..."
-                  value={reviewText}
-                  onChange={(e) => setReviewText(e.target.value)}
-                />
-                <button
-                  className="px-4 py-2 bg-purple-500 text-white rounded-lg font-semibold hover:bg-fuchsia-500 transition"
-                  type="submit"
-                >
-                  Post
-                </button>
-              </form>
-            ) : (
-              // If user has reviewed, show the edit/delete form
-              <form
-                className="mb-4 flex flex-col md:flex-row gap-2"
-                onSubmit={handleEditReview}
-              >
-                <textarea
-                  className="w-full p-2 rounded-lg border border-purple-200 focus:ring-2 focus:ring-fuchsia-400"
-                  rows={2}
-                  placeholder="Edit your review..."
-                  value={reviewText}
-                  onChange={(e) => setReviewText(e.target.value)}
-                />
-                <div className="flex gap-2 items-center">
-                  <button
-                    className="px-4 py-2 bg-purple-500 text-white rounded-lg font-semibold hover:bg-fuchsia-500 transition"
-                    type="submit"
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="px-4 py-2 bg-gray-200 text-purple-700 rounded-lg font-semibold hover:bg-gray-300 transition"
-                    type="button"
-                    onClick={handleDeleteReview}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </form>
-            )}
-          </>
+        {/* Add Review Form - only if user hasn't reviewed */}
+        {user && !myReview && (
+          <form
+            className="mb-4 flex flex-col md:flex-row gap-2"
+            onSubmit={handleReviewSubmit}
+          >
+            <textarea
+              className="w-full p-2 rounded-lg border border-purple-200 focus:ring-2 focus:ring-fuchsia-400"
+              rows={2}
+              placeholder="Write your review..."
+              value={reviewText}
+              onChange={(e) => setReviewText(e.target.value)}
+            />
+            <button
+              className="px-4 py-2 bg-purple-500 text-white rounded-lg font-semibold hover:bg-fuchsia-500 transition"
+              type="submit"
+            >
+              Post
+            </button>
+          </form>
         )}
 
+        {/* Review List */}
         <div className="space-y-4">
           {reviews.length === 0 ? (
             <div className="text-gray-500">No reviews yet.</div>
@@ -360,6 +325,62 @@ const BookDetails = () => {
                 <div className="text-xs text-gray-400">
                   {new Date(r.created_at).toLocaleString()}
                 </div>
+
+                {/* Show Edit button only for own review */}
+                {user?.email === r.user_email && editReviewId !== r._id && (
+                  <>
+                  <button
+                    className=" px-4 py-1 mt-2 font-semibold mr-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200"
+                    onClick={() => {
+                      setEditReviewId(r._id);
+                      setReviewText(r.review_text);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                        className="px-4 py-1 bg-gray-200 text-purple-700 rounded-lg font-semibold hover:bg-gray-300 transition"
+                        type="button"
+                        onClick={() => handleDeleteReview(r._id)}
+                      >
+                        Delete
+                      </button>
+                      </>
+                )}
+
+                {/* Inline edit form for own review */}
+                {user?.email === r.user_email && editReviewId === r._id && (
+                  <form
+                    className="mt-2 flex flex-col md:flex-row gap-2"
+                    onSubmit={(e) => handleEditReview(e, r._id)}
+                  >
+                    <textarea
+                      className="w-full p-2 rounded-lg border border-purple-200 focus:ring-2 focus:ring-fuchsia-400"
+                      rows={2}
+                      value={reviewText}
+                      onChange={(e) => setReviewText(e.target.value)}
+                    />
+                    <div className="flex gap-2 items-center">
+                      <button
+                        className="px-4 py-2 bg-purple-500 text-white rounded-lg font-semibold hover:bg-fuchsia-500 transition"
+                        type="submit"
+                      >
+                        Update
+                      </button>
+                      
+                      <button
+                        type="button"
+                        className="px-4 py-2 font-semibold bg-gray-100 text-gray-600 rounded hover:bg-gray-200"
+                        onClick={() => {
+                          setEditReviewId(null);
+                          setReviewText("");
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                )}
               </div>
             ))
           )}
