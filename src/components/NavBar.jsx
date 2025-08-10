@@ -110,57 +110,62 @@ const Navbar = () => {
           {open ? <FaTimes /> : <FaBars />}
         </button>
 
-        {/* Mobile Menu */}
-        <div className={`fixed md:hidden top-0 right-0 h-screen w-full max-w-xs bg-gradient-to-br from-purple-800 to-pink-600 shadow-2xl z-50 px-7 pt-24 transition-transform duration-300 ${open ? "translate-x-0" : "translate-x-full"}`}>
-          <button className="absolute top-4 right-4 text-2xl text-white" onClick={() => setOpen(false)} aria-label="Close Menu">
-            <FaTimes />
-          </button>
-          <ul className="flex flex-col gap-7">
-            {menuLinks.map(({ to, label }) => (
-              <li key={to}>
-                <NavLink
-                  to={to}
-                  onClick={() => setOpen(false)}
-                  className="block py-2 px-3 text-lg font-semibold text-fuchsia-100 hover:bg-fuchsia-600 rounded transition"
-                >
-                  {label}
-                </NavLink>
-              </li>
-            ))}
-            {user ? (
-              <>
+          <div className={`fixed md:hidden top-0 right-0 h-screen w-full max-w-xs bg-gradient-to-br from-purple-800 to-pink-600 shadow-2xl z-50 px-7 pt-24 transition-transform duration-300 ${open ? "translate-x-0" : "translate-x-full"}`}>
+            <button className="absolute top-4 right-4 text-2xl text-white" onClick={() => setOpen(false)} aria-label="Close Menu">
+              <FaTimes />
+            </button>
+            <ul className="flex flex-col ">
+              {
+                user && <li className="flex items-center gap-3 mb-4">
+              {dbPhoto ? (
+                <img
+                  src={dbPhoto }
+                  alt="Profile"
+                  className="w-10 h-10 rounded-full border-2 border-fuchsia-200 shadow"
+                />
+              ) : (
+                <FaUserCircle className="text-3xl text-fuchsia-100" />
+              )}
+              <span className="font-bold text-fuchsia-100">{user.displayName || user.email}</span>
+            </li>
+              }
+              {menuLinks.map(({ to, label }) => (
+                <li key={to}>
+            <NavLink
+              to={to}
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `block py-2 px-3 text-lg font-semibold transition rounded
+                ${isActive ? "bg-fuchsia-600 text-white" : "text-fuchsia-100 hover:bg-fuchsia-600"}`
+              }
+            >
+              {label}
+            </NavLink>
+                </li>
+              ))}
+              {user ? (
+                <>
+            <li>
+              <button
+                onClick={() => { logoutUser(); setOpen(false); }}
+                className="w-full px-4 my-4 py-2 bg-white/20 hover:bg-white/30 text-fuchsia-100 rounded-xl font-semibold shadow transition"
+              >
+                Logout
+              </button>
+            </li>
+                </>
+              ) : (
                 <li>
-                  <button
-                    onClick={() => { logoutUser(); setOpen(false); }}
-                    className="w-full px-4 py-2 bg-white/20 hover:bg-white/30 text-fuchsia-100 rounded-xl font-semibold shadow transition"
-                  >
-                    Logout
-                  </button>
+            <NavLink
+              to="/login"
+              onClick={() => setOpen(false)}
+              className="block px-4 my-4 py-2 bg-gradient-to-r from-fuchsia-500 to-pink-400 rounded-xl text-white font-bold shadow text-center"
+            >
+              Login
+            </NavLink>
                 </li>
-                <li className="flex items-center gap-3 mt-3">
-                  {dbPhoto ? (
-                    <img
-                      src={dbPhoto }
-                      alt="Profile"
-                      className="w-10 h-10 rounded-full border-2 border-fuchsia-200 shadow"
-                    />
-                  ) : (
-                    <FaUserCircle className="text-3xl text-fuchsia-100" />
-                  )}
-                  <span className="font-bold text-fuchsia-100">{user.displayName || user.email}</span>
-                </li>
-              </>
-            ) : (
-              <li>
-                <NavLink
-                  to="/login"
-                  onClick={() => setOpen(false)}
-                  className="block px-4 py-2 bg-gradient-to-r from-fuchsia-500 to-pink-400 rounded-xl text-white font-bold shadow text-center"
-                >
-                  Login
-                </NavLink>
-              </li>
-            )}
+              )}
+                   
           </ul>
         </div>
       </div>
